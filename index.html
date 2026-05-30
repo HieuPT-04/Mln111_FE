@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Triết Học Chiến Thần: Chuyên Gia Phân Loại Ý Thức</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            cyber: ['Orbitron', 'Montserrat', 'sans-serif'],
+          },
+          colors: {
+            cyber: {
+              cyan: '#00ffe7',
+              emerald: '#00ffae',
+            }
+          },
+          boxShadow: {
+            'cyber': '0 0 24px 4px #00ffe7, 0 0 48px 8px #00ffae44',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+            pop: { '0%': { transform: 'scale(0.7)' }, '100%': { transform: 'scale(1)' } },
+            shake: { '10%, 90%': { transform: 'translateX(-2px)' }, '20%, 80%': { transform: 'translateX(4px)' }, '30%, 50%, 70%': { transform: 'translateX(-8px)' }, '40%, 60%': { transform: 'translateX(8px)' } },
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.7s ease',
+            pop: 'pop 0.4s cubic-bezier(.36,1.7,.57,1)',
+            shake: 'shake 0.5s cubic-bezier(.36,1.7,.57,1)',
+          },
+          backgroundImage: {
+            'cyber-gradient': 'linear-gradient(135deg, #0f172a 60%, #00ffe7 100%)',
+            'cyber-particles': 'radial-gradient(circle at 20% 30%, #00ffe733 0 10%, transparent 60%), radial-gradient(circle at 80% 70%, #00ffae33 0 10%, transparent 60%)',
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="dark bg-slate-900 min-h-screen flex items-center justify-center font-cyber relative overflow-hidden">
+  <!-- Animated Cyberpunk Background -->
+  <div class="pointer-events-none fixed inset-0 z-0 bg-cyber-gradient bg-cyber-particles animate-fadeIn"></div>
+  <button id="music-toggle"
+    class="fixed left-4 top-4 z-50 hidden px-3 py-2 rounded-lg border border-cyber-cyan/40 bg-black/35 backdrop-blur-sm text-cyber-cyan text-[11px] font-semibold tracking-widest uppercase hover:bg-black/50 transition-all shadow-lg">
+    ♪ Nhạc: Bật
+  </button>
+  <div id="app" class="w-full max-w-xl mx-auto p-4 relative z-10">
+    <!-- START SCREEN -->
+    <div id="start-screen" class="flex flex-col items-center justify-center min-h-[70vh]">
+      <h1
+        class="text-cyber-cyan text-4xl md:text-5xl font-extrabold mb-4 text-center drop-shadow-lg tracking-widest animate-pop"
+        style="font-family: Orbitron, sans-serif;">
+        <span class="inline-block align-middle">⚡</span> Chuyên Gia Phân Loại Ý Thức <span
+          class="inline-block align-middle">⚡</span>
+      </h1>
+      <p class="text-slate-300 text-center mb-6 max-w-md">
+        Bạn có <span class="text-cyber-emerald font-bold">60 giây</span> để phân loại các hiện tượng thực tế vào 3 nhóm:
+        <br>
+        <span class="text-blue-400 font-semibold">Tồn tại xã hội</span>,
+        <span class="text-amber-400 font-semibold">Tâm lý xã hội</span>, hoặc
+        <span class="text-purple-400 font-semibold">Hệ tư tưởng</span>.<br>
+        <span class="text-cyber-cyan">Trả lời đúng +10đ, sai -5đ.</span>
+      </p>
+      <div class="w-full max-w-md mb-6">
+        <div class="text-slate-300 text-sm uppercase tracking-[0.3em] text-center mb-3">Chọn chế độ</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <button data-mode="easy"
+            class="mode-btn px-4 py-3 rounded-xl border-2 border-blue-400/60 bg-blue-500/10 text-blue-200 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500/20">
+            Dễ
+            <div class="text-xs font-medium text-blue-100/70 mt-1">Câu cơ bản, gợi ý rõ</div>
+          </button>
+          <button data-mode="normal"
+            class="mode-btn px-4 py-3 rounded-xl border-2 border-cyber-cyan bg-cyber-cyan/15 text-cyber-cyan font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-cyber-cyan/20">
+            Bình thường
+            <div class="text-xs font-medium text-cyan-100/70 mt-1">Cân bằng, đúng chất game</div>
+          </button>
+          <button data-mode="hard"
+            class="mode-btn px-4 py-3 rounded-xl border-2 border-purple-400/60 bg-purple-500/10 text-purple-200 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-purple-500/20">
+            Khó
+            <div class="text-xs font-medium text-purple-100/70 mt-1">Khái niệm sâu hơn</div>
+          </button>
+        </div>
+        <div id="selected-mode-label" class="mt-3 text-center text-slate-400 text-sm">Đang chọn: Bình thường</div>
+      </div>
+      <button id="btn-start"
+        class="px-8 py-3 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-emerald text-slate-900 font-bold text-lg shadow-cyber hover:scale-105 hover:shadow-lg transition-all duration-200 border-2 border-cyber-cyan animate-fadeIn">🚀
+        BẮT ĐẦU CHƠI</button>
+      <!-- Countdown overlay -->
+      <div id="countdown" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black/70">
+        <span id="countdown-number" class="text-cyber-cyan text-7xl md:text-8xl font-extrabold animate-pop"></span>
+      </div>
+    </div>
+
+    <!-- GAMEPLAY SCREEN -->
+    <div id="gameplay-screen" class="hidden flex flex-col gap-6">
+      <!-- Status Bar + Progress Bar -->
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-row items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-cyber-cyan">⏰</span>
+            <span id="timer" class="font-bold text-lg text-cyber-cyan">60</span>
+            <span class="text-slate-400 ml-1">giây</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-cyber-emerald">⭐</span>
+            <span id="score" class="font-bold text-lg text-cyber-emerald">0</span>
+            <span id="streak-badge" class="ml-2 hidden items-center gap-1 text-sm font-semibold text-amber-300">🔥
+              x1</span>
+            <span class="text-slate-400 ml-1">điểm</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-purple-400">📄</span>
+            <span id="progress" class="font-bold text-lg text-cyber-cyan">Câu 1 / 10</span>
+          </div>
+        </div>
+        <div
+          class="flex items-center justify-between text-sm text-slate-300 bg-white/5 border border-white/10 rounded-xl px-4 py-2">
+          <span class="uppercase tracking-[0.25em] text-slate-400">Chế độ đang chơi</span>
+          <span id="current-mode-label" class="font-bold text-cyber-cyan">Bình thường</span>
+        </div>
+        <div class="w-full h-2 bg-zinc-700 rounded-full overflow-hidden mt-1">
+          <div id="progress-bar"
+            class="h-full bg-gradient-to-r from-cyber-cyan to-cyber-emerald transition-all duration-500"
+            style="width: 10%"></div>
+        </div>
+      </div>
+      <!-- Card -->
+      <div class="flex justify-center">
+        <div id="card"
+          class="w-full max-w-md bg-zinc-800 rounded-2xl shadow-cyber p-8 border-4 border-cyber-cyan/40 transition-all duration-300 animate-fadeIn relative overflow-hidden group">
+          <div id="card-decor"
+            class="absolute -top-6 left-1/2 -translate-x-1/2 z-10 text-5xl select-none pointer-events-none transition-all">
+          </div>
+          <div
+            class="mb-2 text-cyber-cyan text-xs md:text-sm font-bold tracking-widest uppercase text-center animate-fadeIn"
+            id="card-title"></div>
+          <div class="mb-2 text-slate-400 text-xs text-center animate-fadeIn" id="card-hint"></div>
+          <div id="card-content"
+            class="typewriter text-xl md:text-2xl text-center text-slate-100 font-semibold min-h-[60px] whitespace-pre-line">
+          </div>
+          <div
+            class="absolute inset-0 pointer-events-none border-2 border-transparent rounded-2xl group-hover:border-cyber-cyan/80 animate-fadeIn"
+            id="card-border-anim"></div>
+        </div>
+      </div>
+      <!-- Answer Buttons -->
+      <div id="answer-buttons" class="flex flex-col md:flex-row gap-4 justify-center">
+        <button data-category="ton_tai"
+          class="answer-btn flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyber-cyan hover:from-cyber-cyan hover:to-blue-600 text-white font-bold text-lg shadow-cyber border-2 border-blue-400 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">🌏
+          Tồn Tại Xã Hội</button>
+        <button data-category="tam_ly"
+          class="answer-btn flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-cyber-emerald hover:from-cyber-emerald hover:to-amber-500 text-white font-bold text-lg shadow-cyber border-2 border-amber-300 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">💡
+          Tâm Lý Xã Hội</button>
+        <button data-category="he_tu_tuong"
+          class="answer-btn flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyber-cyan hover:from-cyber-cyan hover:to-purple-600 text-white font-bold text-lg shadow-cyber border-2 border-purple-400 hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2">📚
+          Hệ Tư Tưởng</button>
+      </div>
+      <!-- Feedback -->
+      <div id="feedback" class="hidden flex flex-col items-center gap-2 mt-2"></div>
+      <!-- End feedback -->
+    </div>
+
+    <!-- GAME OVER SCREEN -->
+    <div id="gameover-screen" class="hidden flex flex-col items-center justify-center min-h-[70vh]">
+      <h2 class="text-cyber-cyan text-3xl md:text-4xl font-extrabold mb-4 text-center drop-shadow-lg animate-pop">🎉 KẾT
+        QUẢ 🎉</h2>
+      <div class="mb-2 text-lg text-slate-200">Tổng điểm: <span id="final-score"
+          class="text-cyber-emerald font-bold text-2xl">0</span></div>
+      <div id="rank" class="mb-6 text-center">
+        <div id="rank-title" class="text-2xl md:text-3xl font-extrabold text-cyber-cyan mb-2"></div>
+        <div id="rank-msg" class="text-lg text-slate-200 mt-2 max-w-2xl"></div>
+      </div>
+      <button id="btn-restart"
+        class="px-8 py-3 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-emerald text-slate-900 font-bold text-lg shadow-cyber hover:scale-105 hover:shadow-lg transition-all border-2 border-cyber-cyan">🔄
+        CHƠI LẠI</button>
+    </div>
+  </div>
+
+  <style>
+    @keyframes typewriter {
+      from {
+        width: 0
+      }
+
+      to {
+        width: 100%
+      }
+    }
+
+    .typewriter {
+      display: block;
+      overflow: visible;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      line-height: 1.35;
+      animation: fadeIn 0.45s ease both;
+      border-right: none;
+    }
+
+    /* Subtle answer selection animation */
+    @keyframes answer-press {
+      0% {
+        transform: translateY(0) scale(1);
+        box-shadow: none;
+      }
+
+      60% {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 14px 30px rgba(2, 255, 180, 0.06);
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+        box-shadow: none;
+      }
+    }
+
+    .answer-press {
+      animation: answer-press 320ms cubic-bezier(.2, .9, .2, 1);
+    }
+
+    .answer-subtle-glow {
+      box-shadow: 0 8px 24px rgba(2, 255, 180, 0.04);
+      transition: box-shadow 220ms ease;
+    }
+
+    /* Reduce global cyber glow (so overall UI is less intense) */
+    .shadow-cyber {
+      box-shadow: 0 0 12px 2px rgba(0, 255, 231, 0.04), 0 0 24px 4px rgba(0, 255, 174, 0.06) !important;
+    }
+
+    /* Correct / wrong pulses on card */
+    .correct-pulse {
+      animation: correct-pulse 720ms ease both;
+    }
+
+    .wrong-pulse {
+      animation: wrong-pulse 720ms ease both;
+    }
+
+    @keyframes correct-pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.0);
+        transform: translateY(0);
+      }
+
+      50% {
+        box-shadow: 0 10px 30px -6px rgba(34, 197, 94, 0.14);
+        transform: translateY(-4px) scale(1.01);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes wrong-pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+        transform: translateY(0);
+      }
+
+      50% {
+        box-shadow: 0 10px 30px -6px rgba(239, 68, 68, 0.12);
+        transform: translateY(-3px) rotate(-0.5deg);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+        transform: translateY(0);
+      }
+    }
+
+    /* Explanation panel */
+    .explain-panel {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: #dbeafe;
+      max-width: 720px;
+      text-align: center;
+      font-size: 0.98rem;
+      line-height: 1.4;
+      animation: fadeIn 360ms ease;
+    }
+
+    .streak-pop {
+      animation: streak-pop 520ms cubic-bezier(.2, .9, .2, 1);
+    }
+
+    @keyframes streak-pop {
+      0% {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.12);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+  <script>
+    // Icon và màu cho từng loại câu hỏi
+    const categoryDecor = {
+      ton_tai: { icon: '🌏', color: 'from-blue-500 to-cyber-cyan', border: 'border-blue-400' },
+      tam_ly: { icon: '💡', color: 'from-amber-400 to-cyber-emerald', border: 'border-amber-300' },
+      he_tu_tuong: { icon: '📚', color: 'from-purple-500 to-cyber-cyan', border: 'border-purple-400' }
+    };
+
+    const modeMeta = {
+      easy: { label: 'Dễ', accent: 'border-blue-400 text-blue-200 bg-blue-500/20' },
+      normal: { label: 'Bình thường', accent: 'border-cyber-cyan text-cyber-cyan bg-cyber-cyan/15' },
+      hard: { label: 'Khó', accent: 'border-purple-400 text-purple-200 bg-purple-500/20' }
+    };
+    // --- GAME DATA ---
+    // --- Countdown Animation ---
+    const countdownOverlay = document.getElementById('countdown');
+    const countdownNumber = document.getElementById('countdown-number');
+    const gameDataByMode = {
+      easy: [
+        { id: 1, content: "Môi trường tự nhiên của một vùng đồng bằng màu mỡ", category: "ton_tai", explain: "Đây là điều kiện tự nhiên - một thành phần của Tồn tại xã hội." },
+        { id: 2, content: "Cảm giác lo lắng khi giá cả tăng nhanh", category: "tam_ly", explain: "Đây là cảm xúc, tâm trạng trực tiếp trong đời sống hằng ngày, thuộc Tâm lý xã hội." },
+        { id: 3, content: "Bộ luật quy định quyền và nghĩa vụ công dân", category: "he_tu_tuong", explain: "Đây là ý thức pháp quyền được thể chế hóa thành văn bản, thuộc Hệ tư tưởng." },
+        { id: 4, content: "Máy móc được dùng trong sản xuất", category: "ton_tai", explain: "Đó là lực lượng sản xuất vật chất, thuộc Tồn tại xã hội." },
+        { id: 5, content: "Thói quen đi trễ của một nhóm người", category: "tam_ly", explain: "Đây là nếp sống, thói quen xã hội, thuộc Tâm lý xã hội." },
+        { id: 6, content: "Quan điểm đạo đức về sống trung thực", category: "he_tu_tuong", explain: "Đây là chuẩn mực tư tưởng, thuộc Hệ tư tưởng." },
+        { id: 7, content: "Ruộng lúa được tưới tiêu từ hệ thống kênh mương", category: "ton_tai", explain: "Đây là điều kiện vật chất trong sản xuất, thuộc Tồn tại xã hội." },
+        { id: 8, content: "Cảm xúc vui vẻ khi nhận được lời khen", category: "tam_ly", explain: "Đây là trạng thái cảm xúc xã hội, thuộc Tâm lý xã hội." },
+        { id: 9, content: "Tư tưởng tôn trọng lẽ phải và công bằng", category: "he_tu_tuong", explain: "Đây là nội dung tư tưởng, thuộc Hệ tư tưởng." },
+        { id: 10, content: "Điều kiện khí hậu nóng ẩm ảnh hưởng đến đời sống", category: "ton_tai", explain: "Khí hậu là yếu tố tự nhiên của Tồn tại xã hội." }
+      ],
+      normal: [
+        { id: 1, content: "Mật độ dân số đông đúc tại các đô thị lớn", category: "ton_tai", explain: "Dân số và mật độ dân số là nhân tố của Tồn tại xã hội." },
+        { id: 2, content: "Tâm lý sính ngoại, chuộng hàng nhập khẩu của đám đông", category: "tam_ly", explain: "Đây là xu hướng tâm lý tự phát của xã hội, thuộc Tâm lý xã hội." },
+        { id: 3, content: "Học thuyết Triết học Mác - Lênin", category: "he_tu_tuong", explain: "Đây là một hệ thống lý luận mang tính khái quát, thuộc Hệ tư tưởng." },
+        { id: 4, content: "Điều kiện tự nhiên và khí hậu nhiệt đới gió mùa", category: "ton_tai", explain: "Điều kiện tự nhiên là thành phần cốt lõi của Tồn tại xã hội." },
+        { id: 5, content: "Tâm trạng lo lắng của người dân khi giá vàng biến động", category: "tam_ly", explain: "Tâm trạng, cảm xúc xã hội là biểu hiện của Tâm lý xã hội." },
+        { id: 6, content: "Các quy tắc đạo đức truyền thống trong gia đình Việt", category: "he_tu_tuong", explain: "Chuẩn mực đạo đức là nội dung thuộc Hệ tư tưởng." },
+        { id: 7, content: "Công cụ sản xuất bằng máy móc tự động hóa", category: "ton_tai", explain: "Thuộc phương thức sản xuất, tức là phần vật chất của xã hội." },
+        { id: 8, content: "Thói quen tùy tiện, đi trễ của nền sản xuất tiểu nông cũ", category: "tam_ly", explain: "Đây là thói quen và nếp sống xã hội, thuộc Tâm lý xã hội." },
+        { id: 9, content: "Bộ luật Hình sự nước Cộng hòa Xã hội Chủ nghĩa Việt Nam", category: "he_tu_tuong", explain: "Pháp luật được thể chế hóa, thuộc Hệ tư tưởng." },
+        { id: 10, content: "Môi trường tự nhiên và tài nguyên ảnh hưởng đến sinh hoạt", category: "ton_tai", explain: "Đây là điều kiện vật chất bên ngoài của xã hội, thuộc Tồn tại xã hội." }
+      ],
+      hard: [
+        { id: 1, content: "Sự hình thành ý thức pháp luật khi nhà nước ban hành bộ luật mới", category: "he_tu_tuong", explain: "Pháp luật là một hình thái ý thức xã hội thuộc Hệ tư tưởng." },
+        { id: 2, content: "Nhịp sống gấp gáp và áp lực giao thông ở thành phố lớn", category: "tam_ly", explain: "Đây là biểu hiện tâm lý xã hội phát sinh từ đời sống đô thị." },
+        { id: 3, content: "Hệ thống các quy tắc đạo đức truyền thống của gia đình Việt", category: "he_tu_tuong", explain: "Chuẩn mực đạo đức mang tính hệ thống, thuộc Hệ tư tưởng." },
+        { id: 4, content: "Quan hệ sở hữu và phương thức sản xuất trong nền kinh tế hiện đại", category: "ton_tai", explain: "Đây là yếu tố vật chất cơ bản của Tồn tại xã hội." },
+        { id: 5, content: "Tâm lý ngại thay đổi khi cộng đồng quen với cách làm cũ", category: "tam_ly", explain: "Đây là tâm lý xã hội mang tính bảo thủ, tự phát." },
+        { id: 6, content: "Các định luật Vật lý của Isaac Newton", category: "he_tu_tuong", explain: "Tri thức khoa học được khái quát thành lý luận, thuộc Hệ tư tưởng." },
+        { id: 7, content: "Môi trường tự nhiên và tài nguyên ảnh hưởng đến đời sống con người", category: "ton_tai", explain: "Điều kiện tự nhiên là một phần của Tồn tại xã hội." },
+        { id: 8, content: "Tâm trạng lo lắng của người dân khi thị trường biến động mạnh", category: "tam_ly", explain: "Đây là tâm trạng xã hội gắn với thực tiễn đời sống." },
+        { id: 9, content: "Bộ luật Hình sự nước Cộng hòa Xã hội Chủ nghĩa Việt Nam", category: "he_tu_tuong", explain: "Pháp quyền được thể chế hóa bằng văn bản, thuộc Hệ tư tưởng." },
+        { id: 10, content: "Mật độ dân số cao tại các khu công nghiệp", category: "ton_tai", explain: "Dân số và điều kiện cư trú là thành phần của Tồn tại xã hội." }
+      ]
+    };
+
+    // --- DOM ELEMENTS ---
+    const startScreen = document.getElementById('start-screen');
+    const gameplayScreen = document.getElementById('gameplay-screen');
+    const gameoverScreen = document.getElementById('gameover-screen');
+    const btnStart = document.getElementById('btn-start');
+    const btnRestart = document.getElementById('btn-restart');
+    const timerEl = document.getElementById('timer');
+    const scoreEl = document.getElementById('score');
+    const progressEl = document.getElementById('progress');
+    const currentModeLabel = document.getElementById('current-mode-label');
+    const cardContent = document.getElementById('card-content');
+    const card = document.getElementById('card');
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    const selectedModeLabel = document.getElementById('selected-mode-label');
+    const answerBtns = document.querySelectorAll('.answer-btn');
+    const feedback = document.getElementById('feedback');
+    const finalScoreEl = document.getElementById('final-score');
+    const rankEl = document.getElementById('rank');
+    const musicToggleBtn = document.getElementById('music-toggle');
+    let rankingsData = null;
+
+    // --- GAME STATE ---
+    let questions = [];
+    let currentIdx = 0;
+    let score = 0;
+    let streak = 0;
+    let timeLeft = 60;
+    let timerInterval = null;
+    let isLocked = false;
+    let selectedMode = 'normal';
+    let backgroundMusic = null;
+    let musicEnabled = true;
+
+    function stopMusic() {
+      if (backgroundMusic) {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0;
+      }
+    }
+
+    function updateMusicButton() {
+      if (!musicToggleBtn) return;
+      musicToggleBtn.textContent = musicEnabled ? '♪ Nhạc: Bật' : '♪ Nhạc: Tắt';
+      musicToggleBtn.classList.toggle('text-cyber-cyan', musicEnabled);
+      musicToggleBtn.classList.toggle('text-slate-400', !musicEnabled);
+    }
+
+    function enableMusicOnFirstGesture() {
+      const tryStart = () => {
+        if (musicEnabled) {
+          startMusic();
+        }
+        window.removeEventListener('pointerdown', tryStart);
+        window.removeEventListener('keydown', tryStart);
+      };
+      window.addEventListener('pointerdown', tryStart, { once: true });
+      window.addEventListener('keydown', tryStart, { once: true });
+    }
+
+    function startMusic() {
+      if (!musicEnabled) return;
+      if (!backgroundMusic) {
+        backgroundMusic = new Audio('/pacman-theme.mp3');
+        backgroundMusic.loop = true;
+        backgroundMusic.preload = 'auto';
+        backgroundMusic.volume = 0.25;
+        backgroundMusic.addEventListener('loadedmetadata', () => {
+          if (backgroundMusic.currentTime < 16) {
+            backgroundMusic.currentTime = 16;
+          }
+        });
+      }
+      backgroundMusic.currentTime = 16;
+      backgroundMusic.play().catch(() => { });
+    }
+
+    updateMusicButton();
+
+    // --- UTILS ---
+    // Fisher-Yates shuffle
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+    }
+
+    // Show/Hide screens
+    function showScreen(screen) {
+      startScreen.classList.add('hidden');
+      gameplayScreen.classList.add('hidden');
+      gameoverScreen.classList.add('hidden');
+      screen.classList.remove('hidden');
+      if (musicToggleBtn) {
+        musicToggleBtn.classList.toggle('hidden', screen === startScreen);
+      }
+    }
+
+    function applyModeUI() {
+      selectedModeLabel.textContent = `Đang chọn: ${modeMeta[selectedMode].label}`;
+      modeButtons.forEach((button) => {
+        const isActive = button.getAttribute('data-mode') === selectedMode;
+        button.className = `mode-btn px-4 py-3 rounded-xl border-2 font-bold transition-all duration-200 hover:scale-[1.03] ${isActive ? modeMeta[selectedMode].accent : 'border-white/10 text-slate-300 bg-white/5 hover:bg-white/10'}`;
+      });
+    }
+
+    function getQuestionsForMode(mode) {
+      return gameDataByMode[mode].map((item, index) => ({
+        ...item,
+        id: index + 1
+      }));
+    }
+
+    // Reset game state
+    function resetGame() {
+      questions = getQuestionsForMode(selectedMode);
+      shuffleArray(questions);
+      currentIdx = 0;
+      score = 0;
+      streak = 0;
+      timeLeft = 60;
+      isLocked = false;
+      updateStatusBar();
+      feedback.classList.add('hidden');
+      card.classList.remove('border-green-500', 'border-red-500');
+      answerBtns.forEach(btn => btn.disabled = false);
+      currentModeLabel.textContent = modeMeta[selectedMode].label;
+    }
+
+    // Update status bar
+    function updateStatusBar() {
+      // Update progress bar
+      const progressBar = document.getElementById('progress-bar');
+      if (progressBar) {
+        progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+      }
+      timerEl.textContent = timeLeft;
+      scoreEl.textContent = score;
+      progressEl.textContent = `Câu ${currentIdx + 1} / ${questions.length}`;
+      const streakBadge = document.getElementById('streak-badge');
+      if (streak > 1) {
+        streakBadge.classList.remove('hidden');
+        streakBadge.textContent = `🔥 x${streak}`;
+        streakBadge.classList.add('streak-pop');
+        setTimeout(() => streakBadge.classList.remove('streak-pop'), 520);
+      } else {
+        streakBadge.classList.add('hidden');
+      }
+      currentModeLabel.textContent = modeMeta[selectedMode].label;
+      // Timer color effect
+      if (timeLeft <= 10) {
+        timerEl.classList.add('text-red-500', 'animate-pulse');
+      } else {
+        timerEl.classList.remove('text-red-500', 'animate-pulse');
+      }
+    }
+
+    // Show current question
+    function showQuestion() {
+      // Card pop effect
+      card.classList.remove('animate-pop', 'animate-shake');
+      void card.offsetWidth; // force reflow
+      card.classList.add('animate-pop');
+      if (currentIdx >= questions.length) {
+        endGame();
+        return;
+      }
+      // Trang trí card câu hỏi
+      const q = questions[currentIdx];
+      // Tiêu đề nhỏ
+      const cardTitle = document.getElementById('card-title');
+      cardTitle.textContent = `Câu hỏi triết học số ${currentIdx + 1}`;
+      // Dòng phụ gợi mở
+      const cardHint = document.getElementById('card-hint');
+      cardHint.textContent = 'Bạn nghĩ hiện tượng này thuộc nhóm nào?';
+      // Icon triết học
+      const cardDecor = document.getElementById('card-decor');
+      cardDecor.textContent = categoryDecor[q.category].icon;
+      // Border gradient động theo loại
+      card.classList.remove('border-green-500', 'border-red-500', 'border-blue-400', 'border-amber-300', 'border-purple-400');
+      card.classList.add(categoryDecor[q.category].border);
+      // Border anim
+      const cardBorderAnim = document.getElementById('card-border-anim');
+      cardBorderAnim.className = `absolute inset-0 pointer-events-none border-2 rounded-2xl border-transparent group-hover:border-4 group-hover:${categoryDecor[q.category].border} transition-all duration-300`;
+      // Hiệu ứng typewriter cho nội dung
+      cardContent.classList.remove('typewriter');
+      void cardContent.offsetWidth;
+      cardContent.classList.add('typewriter');
+      cardContent.classList.add('max-w-full', 'mx-auto');
+      cardContent.textContent = q.content;
+      feedback.classList.add('hidden');
+      answerBtns.forEach(btn => btn.disabled = false);
+      isLocked = false;
+      updateStatusBar();
+    }
+
+    // Handle answer click
+    function handleAnswer(category, btn) {
+      if (isLocked) return;
+      isLocked = true;
+      answerBtns.forEach(btn => btn.disabled = true);
+      const q = questions[currentIdx];
+      // visual micro-feedback on the clicked button (subtle)
+      if (btn) {
+        btn.classList.remove('ring-4', 'ring-emerald-300/40', 'ring-red-300/30');
+      }
+
+      if (category === q.category) {
+        // Correct
+        // base points
+        let points = 10;
+        // update streak
+        streak++;
+        // bonus for consecutive correct answers (from 3rd onward)
+        if (streak >= 3) {
+          const bonus = (streak - 2) * 2; // small growing bonus
+          points += bonus;
+        }
+        score += points;
+        card.classList.add('border-green-500');
+        if (btn) {
+          btn.classList.add('ring-4', 'ring-emerald-300/40');
+          setTimeout(() => btn.classList.remove('ring-4', 'ring-emerald-300/40'), 700);
+        }
+        // card correct pulse
+        card.classList.remove('wrong-pulse');
+        void card.offsetWidth;
+        card.classList.add('correct-pulse');
+        showFeedback(true, q.explain, points);
+        setTimeout(() => {
+          currentIdx++;
+          showQuestion();
+        }, 1200);
+      } else {
+        // Wrong
+        score = Math.max(0, score - 5);
+        streak = 0;
+        card.classList.add('border-red-500', 'animate-shake');
+        if (btn) {
+          btn.classList.add('ring-4', 'ring-red-300/30');
+          setTimeout(() => btn.classList.remove('ring-4', 'ring-red-300/30'), 700);
+        }
+        // card wrong pulse and auto-advance
+        card.classList.remove('correct-pulse');
+        void card.offsetWidth;
+        card.classList.add('wrong-pulse');
+        showFeedback(false, q.explain, 0);
+        setTimeout(() => {
+          currentIdx++;
+          showQuestion();
+        }, 1200);
+      }
+      updateStatusBar();
+    }
+
+    // Show feedback
+    function showFeedback(isCorrect, explain = '', points = 0) {
+      feedback.innerHTML = '';
+      feedback.classList.remove('hidden');
+      const explainHtml = `<div class="explain-panel">${explain}</div>`;
+      if (isCorrect) {
+        const comboNote = streak >= 3 ? `<div class="text-amber-300 font-semibold">Combo: x${streak} (+${points - 10} bonus)</div>` : '';
+        feedback.innerHTML = `<div class=\"text-emerald-400 font-bold text-lg flex items-center gap-2\">✅ Chính xác! +${points} điểm</div>${comboNote}<div class=\"mt-2\">${explainHtml}</div>`;
+      } else {
+        feedback.innerHTML = `
+          <div class=\"text-red-400 font-bold text-lg flex items-center gap-2\">❌ Chưa chính xác! -5 điểm</div>
+          <div class=\"mt-2\">${explainHtml}</div>
+        `;
+      }
+    }
+
+    // Timer logic
+    function startTimer() {
+      timerEl.textContent = timeLeft;
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateStatusBar();
+        if (timeLeft <= 0) {
+          timeLeft = 0;
+          updateStatusBar();
+          endGame();
+        }
+      }, 1000);
+    }
+
+    // End game
+    function endGame() {
+      clearInterval(timerInterval);
+      showScreen(gameoverScreen);
+      finalScoreEl.textContent = score;
+      // Rank determination using 0-100 clamped scale
+      const clamp = Math.max(0, Math.min(100, score));
+      let grade = 'F';
+      if (clamp <= 10) grade = 'F';
+      else if (clamp <= 30) grade = 'E';
+      else if (clamp <= 50) grade = 'D';
+      else if (clamp <= 70) grade = 'C';
+      else if (clamp <= 90) grade = 'B';
+      else grade = 'S';
+
+      // Show title + a single short comment
+      const rankTitleEl = document.getElementById('rank-title');
+      const rankMsgEl = document.getElementById('rank-msg');
+      rankTitleEl.textContent = '';
+      rankMsgEl.textContent = '';
+
+      if (rankingsData && Array.isArray(rankingsData)) {
+        const entry = rankingsData.find(r => r.rank === grade);
+        if (entry) {
+          const msgs = entry.messages || [];
+          const msg = msgs.length ? msgs[Math.floor(Math.random() * msgs.length)] : '';
+          rankTitleEl.textContent = entry.title;
+          rankMsgEl.textContent = msg;
+        } else {
+          rankTitleEl.textContent = grade;
+        }
+      } else {
+        // fallback simple titles
+        let fallbackTitle = '';
+        if (grade === 'S') fallbackTitle = 'Bậc Thầy Triết Học';
+        else if (grade === 'B') fallbackTitle = 'Nhà Phê Bình Sắc Sảo';
+        else if (grade === 'C') fallbackTitle = 'Người Học Sáng Sủa';
+        else if (grade === 'D') fallbackTitle = 'Người Mê Muội Khởi Đầu';
+        else if (grade === 'E') fallbackTitle = 'Lữ Khách Triết Học';
+        else fallbackTitle = 'Sinh Viên Cần Cố Gắng';
+        rankTitleEl.textContent = fallbackTitle;
+        rankMsgEl.textContent = '';
+      }
+    }
+
+    // --- EVENT LISTENERS ---
+    btnStart.onclick = () => {
+      // Countdown 3-2-1 effect
+      let count = 3;
+      countdownOverlay.classList.remove('hidden');
+      countdownNumber.textContent = count;
+      countdownNumber.classList.add('animate-pop');
+      const countdownInterval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownNumber.textContent = count;
+          countdownNumber.classList.remove('animate-pop');
+          void countdownNumber.offsetWidth;
+          countdownNumber.classList.add('animate-pop');
+        } else {
+          clearInterval(countdownInterval);
+          countdownOverlay.classList.add('hidden');
+          resetGame();
+          showScreen(gameplayScreen);
+          showQuestion();
+          startTimer();
+        }
+      }, 700);
+    };
+
+    btnRestart.onclick = () => {
+      // Stop any running timer and return to start screen so player can choose mode
+      clearInterval(timerInterval);
+      stopMusic();
+      resetGame();
+      showScreen(startScreen);
+      applyModeUI();
+      startMusic();
+    };
+
+    answerBtns.forEach(btn => {
+      btn.onclick = () => {
+        // subtle press animation
+        btn.classList.remove('answer-press');
+        void btn.offsetWidth;
+        btn.classList.add('answer-press');
+        // small transient glow
+        btn.classList.add('answer-subtle-glow');
+        setTimeout(() => btn.classList.remove('answer-subtle-glow'), 360);
+        handleAnswer(btn.getAttribute('data-category'), btn);
+      };
+    });
+
+    modeButtons.forEach((button) => {
+      button.onclick = () => {
+        selectedMode = button.getAttribute('data-mode');
+        applyModeUI();
+      };
+    });
+
+    if (musicToggleBtn) {
+      musicToggleBtn.onclick = async () => {
+        musicEnabled = !musicEnabled;
+        updateMusicButton();
+        if (musicEnabled) {
+          startMusic();
+        } else {
+          stopMusic();
+        }
+      };
+    }
+
+    applyModeUI();
+
+    // --- INIT: Always show start screen on load ---
+    // load ranking messages JSON
+    fetch('rankings.json').then(r => r.json()).then(data => { rankingsData = data; }).catch(() => { rankingsData = null; });
+    startMusic();
+    enableMusicOnFirstGesture();
+    showScreen(startScreen);
+  </script>
+</body>
+
+</html>

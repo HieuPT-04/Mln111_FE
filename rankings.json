@@ -1,0 +1,68 @@
+[
+  {
+    "rank": "S",
+    "title": "👑 Bậc Thầy Ý Thức",
+    "messages": [
+      "Bạn nhìn một hiện tượng là biết nó thuộc nhóm nào. Giảng viên bắt đầu nghi ngờ bạn đã ra đề.",
+      "Tồn tại xã hội, Tâm lý xã hội và Hệ tư tưởng không còn lừa được bạn nữa.",
+      "Marx gật đầu. Engels gật đầu. Còn bạn thì nên thử chế độ Khó.",
+      "Độ chính xác này khiến giáo trình trở thành tài liệu tham khảo chứ không còn là cứu tinh nữa.",
+      "Bạn phân loại nhanh đến mức các khái niệm còn chưa kịp ngụy trang."
+    ]
+  },
+  {
+    "rank": "B",
+    "title": "🧠 Chuyên Gia Ý Thức",
+    "messages": [
+      "Bạn đã hiểu khá rõ bản chất các khái niệm, chỉ còn vài cú click mang tính cảm xúc.",
+      "Gần đạt cảnh giới Bậc Thầy rồi, thiếu vài đáp án đúng nữa thôi.",
+      "Nếu đây là bài kiểm tra trên lớp, giảng viên đã bắt đầu mỉm cười.",
+      "Bạn phân loại khá chuẩn, nhưng đôi lúc vẫn tin trực giác hơn giáo trình.",
+      "Chỉ cần thêm một chút tư duy biện chứng là đủ để bước lên hạng S."
+    ]
+  },
+  {
+    "rank": "C",
+    "title": "🎓 Nhà Nghiên Cứu Trẻ",
+    "messages": [
+      "Bạn đã bắt đầu hiểu luật chơi, giờ là lúc hiểu luôn kiến thức.",
+      "Một số khái niệm bạn nhận ra ngay, một số khác vẫn đang chơi trốn tìm.",
+      "Khả năng phân loại ổn đấy, nhưng vẫn còn vài pha đoán theo cảm giác.",
+      "Giảng viên tạm yên tâm, nhưng chưa hoàn toàn hết lo lắng.",
+      "Tiếp tục luyện tập, khoảng cách tới hạng B không còn xa."
+    ]
+  },
+  {
+    "rank": "D",
+    "title": "📖 Người Mới Nhập Môn",
+    "messages": [
+      "Bạn đang đi đúng hướng, chỉ là hơi zig-zag một chút.",
+      "Tồn tại xã hội với Hệ tư tưởng đôi khi vẫn tráo vai trước mặt bạn.",
+      "Có vẻ bạn hiểu một phần, phần còn lại đang nằm đâu đó trong giáo trình.",
+      "Điểm số chưa cao nhưng ít nhất bạn đã chiến đấu đến phút cuối.",
+      "Thêm vài lần chơi nữa và các khái niệm sẽ bớt đáng sợ hơn nhiều."
+    ]
+  },
+  {
+    "rank": "E",
+    "title": "📝 Nhà Thám Hiểm Triết Học",
+    "messages": [
+      "Bạn đang khám phá thế giới triết học bằng phương pháp thử và sai.",
+      "Một số đáp án có vẻ được chọn bằng niềm tin hơn là kiến thức.",
+      "Đừng lo, ai cũng từng nhầm Hệ tư tưởng với Tâm lý xã hội ít nhất một lần.",
+      "Bạn đã có tinh thần học tập, giờ chỉ cần bổ sung thêm phần học.",
+      "Marx chưa thất vọng đâu, nhưng ông ấy đang mong bạn đọc thêm tài liệu."
+    ]
+  },
+  {
+    "rank": "F",
+    "title": "😵 Sinh Viên Cần Cố Gắng",
+    "messages": [
+      "Bạn đang phân loại bằng trực giác nhiều hơn bằng tri thức.",
+      "Các khái niệm vừa đánh lừa bạn thành công. Hãy phục thù ở lượt chơi tiếp theo.",
+      "Có vẻ Tồn tại xã hội, Tâm lý xã hội và Hệ tư tưởng đang đánh nhau trong đầu bạn.",
+      "Đừng buồn, ít nhất bạn đã biết mình cần ôn phần nào.",
+      "Marx đề nghị bạn chơi lại. Engels cũng đồng ý."
+    ]
+  }
+]
