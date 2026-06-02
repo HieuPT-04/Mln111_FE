@@ -22,6 +22,12 @@
               cyan: '#00ffe7',
               emerald: '#00ffae',
             }
+            ,
+            lgpt: {
+              DEFAULT: '#10A37F',
+              mint: '#00E6B8',
+              neon: '#00ffe7'
+            }
           },
           boxShadow: {
             'cyber': '0 0 24px 4px #00ffe7, 0 0 48px 8px #00ffae44',
@@ -39,6 +45,8 @@
           backgroundImage: {
             'cyber-gradient': 'linear-gradient(135deg, #0f172a 60%, #00ffe7 100%)',
             'cyber-particles': 'radial-gradient(circle at 20% 30%, #00ffe733 0 10%, transparent 60%), radial-gradient(circle at 80% 70%, #00ffae33 0 10%, transparent 60%)',
+            'lgpt-gradient': 'linear-gradient(135deg, #071218 20%, #0f3b2f 60%, #10A37F 100%)',
+            'lgpt-particles': 'radial-gradient(circle at 15% 25%, #00e6b833 0 8%, transparent 60%), radial-gradient(circle at 85% 75%, #00ffe733 0 8%, transparent 60%)'
           },
         }
       }
@@ -47,8 +55,8 @@
 </head>
 
 <body class="dark bg-slate-900 min-h-screen flex items-center justify-center font-cyber relative overflow-hidden">
-  <!-- Animated Cyberpunk Background -->
-  <div class="pointer-events-none fixed inset-0 z-0 bg-cyber-gradient bg-cyber-particles animate-fadeIn"></div>
+  <!-- Animated LGPT Background -->
+  <div class="pointer-events-none fixed inset-0 z-0 bg-lgpt-gradient bg-lgpt-particles animate-fadeIn"></div>
   <button id="music-toggle"
     class="fixed left-4 top-4 z-50 hidden px-3 py-2 rounded-lg border border-cyber-cyan/40 bg-black/35 backdrop-blur-sm text-cyber-cyan text-[11px] font-semibold tracking-widest uppercase hover:bg-black/50 transition-all shadow-lg">
     ♪ Nhạc: Bật
